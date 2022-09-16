@@ -10,8 +10,9 @@
 
                     <div class=" input-box mt-3 ">
 
-                        <select (click)="radiolist($event)" formControlName="selectedSubject">
-                            <option value="Shopping & Ordering" >Shopping & Ordering</option>
+                        <select (click)="radiolist($event)" formControlName="selectedSubject"
+                            placeholder="Shopping & Ordering">
+                            <option value="Shopping & Ordering">Shopping & Ordering</option>
                             <option value="Customer Feedback">Customer Feedback</option>
                             <option value="Returns & Exchange">Returns & Exchange</option>
                             <option value="Payments">Payments</option>
@@ -26,13 +27,13 @@
                 </div>
                 <div *ngIf="radioVisible">
                     <div class="form-check form-check-inline mt-4 mr-6">
-                        <input class="form-check-input" (click)="orderNumber($event)" type="radio"
-                            name="inlineRadioOptions" id="inlineRadio1" value="true" formControlName="selectType">
+                        <input class="form-check-input" (click)="orderNumber($event)" type="radio" name="Online"
+                            id="inlineRadio1" value="true" formControlName="Online">
                         <label class="form-check-label" for="inlineRadio1">Online</label>
                     </div>
                     <div class="form-check form-check-inline ">
-                        <input class="form-check-input" (click)="storeName($event)" type="radio"
-                            name="inlineRadioOptions" id="inlineRadio2" value="false" formControlName="selectType">
+                        <input class="form-check-input" (click)="storeName($event)" type="radio" name="Online"
+                            id="inlineRadio2" value="false" formControlName="Offline">
                         <label class="form-check-label" for="inlineRadio2">Offline</label>
                     </div>
                 </div>
@@ -61,7 +62,7 @@
                     </div>
                 </div>
                 <div class="form-group form-box mt-4">
-             <div class="input-box">
+                    <div class="input-box">
                         <input type="text" class="form-control" name="Name" minlength="3" formControlName="Name"
                             required>
                         <label>Name*</label>
@@ -69,18 +70,19 @@
                     <span class="text-danger"
                         *ngIf="(submitted ) && (loginForm.get('Name')?.errors?.['required']) || (loginForm.get('Name')?.touched && loginForm.get('Name')?.errors?.['required'])">Name
                         is
-                        required  </span>
-                        <span class="text-danger"
-                        *ngIf="(loginForm.get('Name')?.errors?.['pattern'] )||(loginForm.get('Name')?.errors?.['minlength'])">invalid Name </span>
-       
+                        required </span>
+                    <span class="text-danger"
+                        *ngIf="(loginForm.get('Name')?.errors?.['pattern'] )||(loginForm.get('Name')?.errors?.['minlength'])">invalid
+                        Name </span>
+
                 </div>
                 <div class="form-group  form-box mt-4">
-             <div class="input-box">
+                    <div class="input-box">
                         <input type="text" class="form-control" name="City" formControlName="City" required>
                         <label>City*</label>
                     </div>
-            <span class="text-danger"
-        *ngIf="(loginForm.get('City')?.errors?.['required'] && loginForm.get('City')?.touched)||(submitted && loginForm.get('City')?.errors)">city
+                    <span class="text-danger"
+                        *ngIf="(loginForm.get('City')?.errors?.['required'] && loginForm.get('City')?.touched)||(submitted && loginForm.get('City')?.errors)">city
                         is
                         required</span>
                 </div>
@@ -94,20 +96,21 @@
                         *ngIf="(submitted ) && (loginForm.get('Email')?.errors?.['required']) || (loginForm.get('Email')?.touched && loginForm.get('Email')?.errors?.['required'])">email
                         is
                         required</span>
-                        <span class="text-danger"
-                        *ngIf="(loginForm.get('Email')?.errors?.['email'] )">invalid email
-                        </span>
+                    <span class="text-danger" *ngIf="(loginForm.get('Email')?.errors?.['email'] )">invalid email
+                    </span>
                 </div>
                 <div class="form-group form-box mt-4">
 
                     <div class="input-box">
-                        <input type="text" class="form-control" onKeyPress="if(this.value.length==10) return false;" name="Mobile" formControlName="Mobile" required>
+                        <input type="text" class="form-control" onKeyPress="if(this.value.length==10) return false;"
+                            name="Mobile" formControlName="Mobile" required>
                         <label>Mobile Number*</label>
                     </div>
                     <span class="text-danger"
                         *ngIf="(submitted ) && (loginForm.get('Mobile')?.errors?.['required']) || (loginForm.get('Mobile')?.touched && loginForm.get('Mobile')?.errors?.['required'])">Mobile
                         number is required</span>
-                     <span class="text-danger" *ngIf="(loginForm.get('Mobile')?.errors?.['pattern'] )" >Enter valid mobile number</span>  
+                    <span class="text-danger" *ngIf="(loginForm.get('Mobile')?.errors?.['pattern'] )">Enter valid mobile
+                        number</span>
                 </div>
                 <div class="form-group form-box mt-4">
 
@@ -121,20 +124,22 @@
                         is required</span>
                 </div>
                 <div class="clock">
-    <canvas id="myCanvas"></canvas>        
+                    <canvas id="myCanvas"></canvas>
                     <div class="identification m-4">
                         <div class="arrow"> <i class="bi bi-arrow-clockwise" (click)="newCode()"></i> </div>
-                         <label style="font-weight:bold; ">human identification</label>
-                        <input type="text" (change)="validateCaptcha($event)" class="form-control" name="Captcha" onKeyPress="if(this.value.length==6) return false;"
-                            formControlName="Captcha" required style="width:150px;height:30px ">
+                        <label style="font-weight:bold; ">human identification</label>
+                        <input type="text" (change)="validateCaptcha($event)" class="form-control" name="Captcha"
+                            onKeyPress="if(this.value.length==6) return false;" formControlName="Captcha" required
+                            style="width:150px;height:30px ">
                         <span class="text-danger"
-                            *ngIf="(loginForm.get('Captcha')?.errors?.['required'] && loginForm.get('Captcha')?.touched)||(submitted && loginForm.get('Captcha')?.errors?.['required'] )">please
+                            *ngIf="( loginForm.get('Captcha')?.errors?.['required'] && submitted)||(loginForm.get('Captcha')?.touched && loginForm.get('Captcha')?.errors?.['required'])">please
                             enter captcha code shown</span>
-                        <span class="text-danger" *ngIf="isCaptchaMissMatched">code does not match</span>
+                        <span class="text-danger" *ngIf="isCaptchaMissMatched  ">code does not match</span>
                     </div>
 
                     <div class="loginbtn mt-6">
-                        <button type="submit" class="btn btn-danger " class="commonbtn" (click)="userDetails()">Submit</button>
+                        <button type="submit" class="btn btn-danger " class="commonbtn"
+                            (click)="userDetails()">Submit</button>
                     </div>
                 </div>
 
