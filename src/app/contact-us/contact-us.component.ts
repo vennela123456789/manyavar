@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ContactUs } from '../constants/constants';
-import { Captchaservice } from '../services/captcha.service';
+// import { Captchaservice } from '../services/captcha.service';
 import { ContactUsService } from '../services/contact-us.service';
 
 @Component({
@@ -20,13 +20,15 @@ public radioVisible:boolean=false;
 isCaptchaMissMatched :boolean=false;
 orderVisible:boolean=false;
 storeVisible:boolean=false;
+random:any;
 
-  constructor(private router:Router,private fb:FormBuilder,private http:HttpClient,private captcha:Captchaservice,private contact:ContactUsService) { }
+  constructor(private router:Router,private fb:FormBuilder,private http:HttpClient,private contact:ContactUsService) { }
 
   ngOnInit(): void {
     this.loginForm=this.fb.group({
       selectedSubject:[''],
       selectType:[''],
+      orderNumber:[''],
       StoreCity:[''],
       StoreName:[''],
       Name:['',[Validators.required,Validators.minLength(3),Validators.pattern('^[a-zA-Z ]*$')]],
@@ -37,7 +39,7 @@ storeVisible:boolean=false;
       Feedback:['',Validators.required],
       Captcha:['',Validators.required],
     })
-    this.code=this.captcha.GenerateCode();
+    // this.code=this.captcha.GenerateCode();
     //this.canvasGenerate(this.code)
     this.newCode();
   }
@@ -48,6 +50,7 @@ login(){
  newCode(){
   let random = Math.floor(Math.random() * (999999 - 100000)) + 100000
   // this.code=this.captcha.GenerateCode();
+  this.random=random;
   this.canvasGenerate(random)
 }
 userDetails(){
@@ -58,24 +61,30 @@ userDetails(){
  }
 
  else{
- debugger
- let abc : FormData = new FormData
+
 
  
   let req={
+    CaptchaCode:this.loginForm.value.Captcha,
+    City:  this.loginForm.value.City,
+    CurrencyId: "1",
+    CustomerToken: "",
+    Email: this.loginForm.value.Email,
+    Enquiry: this.loginForm.value.Feedback,
+    FirstName: this.loginForm.value.Name,
+    IsOnlineOrder:  this.loginForm.value.selectType,
+    MobileCountryCode : 1,
+    Phone :   this.loginForm.value.Mobile,
+    StoreCity :  this.loginForm.value.storeCity,
+    StoreName : this.loginForm.value.storeName,
+    Subject: this.loginForm.value.selectedSubject,
+    OrderNumber:this.loginForm.value.orderNumber
 
-    Select:this.loginForm.value.selectedSubject,
-     OnOffline:this.loginForm.value.selectType,
 
-    StoreCity:this.loginForm.value.StoreCity,
-    StoreName:this.loginForm.value.StoreName,
 
-    Name: this.loginForm.value.Name,
-    City:this.loginForm.value.City,
-    Email:this.loginForm.value.Email,
-    Phone: this.loginForm.value.Mobile,
-    Feedback: this.loginForm.value.Feedback,
-    CaptchaCode:this.code,
+
+
+   
   }
   this.contact.postService(ContactUs,req).subscribe(data=>this.details=data)
  }
@@ -110,7 +119,7 @@ ctx!.font="20px Arial"
   ctx?.fillText(code,10,50);
 }
 validateCaptcha(e:any){
-  if(e.target.value==this.code){
+  if(e.target.value==this.random){
 this.isCaptchaMissMatched=false;
   }
   else{

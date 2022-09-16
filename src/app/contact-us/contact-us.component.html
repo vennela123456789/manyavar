@@ -27,12 +27,12 @@
                 <div *ngIf="radioVisible">
                     <div class="form-check form-check-inline mt-4 mr-6">
                         <input class="form-check-input" (click)="orderNumber($event)" type="radio"
-                            name="inlineRadioOptions" id="inlineRadio1" value="Online" formControlName="selectType">
+                            name="inlineRadioOptions" id="inlineRadio1" value="true" formControlName="selectType">
                         <label class="form-check-label" for="inlineRadio1">Online</label>
                     </div>
                     <div class="form-check form-check-inline ">
                         <input class="form-check-input" (click)="storeName($event)" type="radio"
-                            name="inlineRadioOptions" id="inlineRadio2" value="Offline" formControlName="selectType">
+                            name="inlineRadioOptions" id="inlineRadio2" value="false" formControlName="selectType">
                         <label class="form-check-label" for="inlineRadio2">Offline</label>
                     </div>
                 </div>
@@ -125,7 +125,7 @@
                     <div class="identification m-4">
                         <div class="arrow"> <i class="bi bi-arrow-clockwise" (click)="newCode()"></i> </div>
                          <label style="font-weight:bold; ">human identification</label>
-                        <input type="text" (change)="validateCaptcha($event)" class="form-control" name="captcha" onKeyPress="if(this.value.length==6) return false;"
+                        <input type="text" (change)="validateCaptcha($event)" class="form-control" name="Captcha" onKeyPress="if(this.value.length==6) return false;"
                             formControlName="Captcha" required style="width:150px;height:30px ">
                         <span class="text-danger"
                             *ngIf="(loginForm.get('Captcha')?.errors?.['required'] && loginForm.get('Captcha')?.touched)||(submitted && loginForm.get('Captcha')?.errors?.['required'] )">please
