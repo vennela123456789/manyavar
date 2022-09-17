@@ -21,48 +21,48 @@ export class ContactUsComponent implements OnInit {
   orderVisible: boolean = false;
   storeVisible: boolean = false;
   random: any;
+  // userCaptcha: boolean = false;
 
   constructor(private router: Router, private fb: FormBuilder, private http: HttpClient, private contact: ContactUsService) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      selectedSubject: [''],
+
       selectType: [''],
+      Online: [''],
       orderNumber: [''],
       StoreCity: [''],
       StoreName: [''],
       Name: ['', [Validators.required, Validators.minLength(3), Validators.pattern('^[a-zA-Z ]*$')]],
       City: ['', Validators.required],
 
-      Email: ['', [Validators.required, Validators.email]],
+      Email: ['', [Validators.required, Validators.email, Validators.maxLength(32)]],
       Mobile: ['', [Validators.required, Validators.pattern(/^[6789][0-9]{9}$/)]],
-      Feedback: ['', Validators.required],
-      Captcha: ['', [Validators.required, Validators.minLength(6)]]
+      Feedback: ['', [Validators.required, Validators.maxLength(32)]],
+      Captcha: ['', [Validators.required]]
     })
     // this.code=this.captcha.GenerateCode();
     //this.canvasGenerate(this.code)
     this.newCode();
   }
 
-  login() {
-
-  }
   newCode() {
     let random = Math.floor(Math.random() * (999999 - 100000)) + 100000
     // this.code=this.captcha.GenerateCode();
     this.random = random;
-    this.canvasGenerate(random)
+    this.canvasGenerate(random);
   }
   userDetails() {
     debugger
-    this.submitted = true;
-    if (this.loginForm.invalid) {
-      return
-    }
+    this.submitted = false;
+    if (this.loginForm.valid && this.isCaptchaMissMatched == false) {
+      //   return
+      // }
 
-    else {
-
-
+      // else if (this.userCaptcha != this.random) {
+      //   this.userCaptcha = false;
+      // }
+      // else {
       let req: FormData = new FormData;
       req.CaptchaCode = this.loginForm.value.Captcha;
       req.City = this.loginForm.value.City;
@@ -75,6 +75,7 @@ export class ContactUsComponent implements OnInit {
       req.Phone = this.loginForm.value.Mobile;
 
       req.Subject = this.loginForm.value.selectedSubject;
+
 
       if (this.orderVisible == true) {
         req.IsOnlineOrder = true;
@@ -91,24 +92,14 @@ export class ContactUsComponent implements OnInit {
         req.StoreCity = '';
         req.StoreName = ''
       }
-
-      //   let req={
-      //     CaptchaCode:this.loginForm.value.Captcha,
-      //     City:  this.loginForm.value.City,
-      //     CurrencyId: "1",
-      //     CustomerToken: "",
-      //     Email: this.loginForm.value.Email,
-      //     Enquiry: this.loginForm.value.Feedback,
-      //     FirstName: this.loginForm.value.Name,
-      //     IsOnlineOrder:  this.loginForm.value.selectType,
-      //     MobileCountryCode : 1,
-      //     Phone :   this.loginForm.value.Mobile,
-      //     StoreCity :  this.loginForm.value.storeCity,
-      //     StoreName : this.loginForm.value.storeName,
-      //     Subject: this.loginForm.value.selectedSubject,
-      //     OrderNumber:this.loginForm.value.orderNumber
-      // }
       this.contact.postService(ContactUs, req).subscribe(data => this.details = data)
+      alert('success')
+      this.loginForm.reset();
+      this.submitted = false;
+
+    }
+    else {
+      this.submitted = true;
     }
 
   }
@@ -141,12 +132,17 @@ export class ContactUsComponent implements OnInit {
     ctx!.font = "20px Arial"
     ctx?.fillText(code, 10, 50);
   }
+
   validateCaptcha(e: any) {
-    if (e.target.value == this.random) {
-      this.isCaptchaMissMatched = false;
-    }
-    else {
+
+    if (e.target.value != this.random && e.target.value.length > 0) {
       this.isCaptchaMissMatched = true;
+      // this.userCaptcha = false;
+    }
+
+    else {
+      //   this.userCaptcha = true;
+      this.isCaptchaMissMatched = false;
     }
   }
 }
