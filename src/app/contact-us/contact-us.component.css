@@ -1,22 +1,22 @@
-
-select{
+select {
     font-family: philosopherregula;
-    width:450px;
-    height:50px;
-    border:1px solid #89681f;
+    width: 450px;
+    height: 50px;
+    border: 1px solid #89681f;
 }
 
-.input-box{
-  
-    
+.input-box {
+
+
     position: relative;
     z-index: 1;
     color: #8c8b8b;
     font-size: 15px;
-    width:450px;
-    height:50px;
-    
+    width: 450px;
+    height: 50px;
+
 }
+
 .form-box label {
     font-size: 12px;
     letter-spacing: 1.68px;
@@ -29,30 +29,35 @@ select{
     padding: 0 13px;
     background: #fff;
     z-index: 1;
-    
+
 }
-    
+
 label {
     display: inline-block;
     margin-bottom: 0;
 }
-i{
-    color:rgb(204, 12, 44);
+
+i {
+    color: rgb(204, 12, 44);
     font-size: 30px;
     font-weight: bold;
 }
-button{
-    width:150px;
+
+button {
+    width: 150px;
     border-radius: 100px;
-  
+
 }
-.clock{
-    float:left;
+
+.clock {
+    float: left;
 }
-.identification{
-    float:right;
+
+.identification {
+    float: right;
 }
-span{
+
+span {
     display: inline-block;
     vertical-align: top;
     clear: both;
@@ -64,16 +69,19 @@ span{
     font-family: philosopherregular;
     text-align: left;
 }
-.loginbtn{
-    
+
+.loginbtn {
+
     position: relative;
     margin-top: 10px;
 }
-.arrow{
-    magin-right:0px;
-    padding-left:20px;
+
+.arrow {
+    magin-right: 0px;
+    padding-left: 20px;
 }
-.commonbtn{
+
+.commonbtn {
     width: 150px;
     height: 36px;
     font-size: 13px;

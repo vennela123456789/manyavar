@@ -21,6 +21,7 @@ export class ContactUsComponent implements OnInit {
   orderVisible: boolean = false;
   storeVisible: boolean = false;
   random: any;
+
   // userCaptcha: boolean = false;
 
   constructor(private router: Router, private fb: FormBuilder, private http: HttpClient, private contact: ContactUsService) { }
@@ -28,27 +29,26 @@ export class ContactUsComponent implements OnInit {
   ngOnInit(): void {
     this.loginForm = this.fb.group({
 
-      selectType: [''],
-      Online: [''],
-      orderNumber: [''],
-      StoreCity: [''],
-      StoreName: [''],
+
       Name: ['', [Validators.required, Validators.minLength(3), Validators.pattern('^[a-zA-Z ]*$')]],
       City: ['', Validators.required],
 
-      Email: ['', [Validators.required, Validators.email, Validators.maxLength(32)]],
+      Email: ['', [Validators.required, Validators.pattern(
+
+        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
+      )]],
       Mobile: ['', [Validators.required, Validators.pattern(/^[6789][0-9]{9}$/)]],
       Feedback: ['', [Validators.required, Validators.maxLength(32)]],
       Captcha: ['', [Validators.required]]
     })
-    // this.code=this.captcha.GenerateCode();
-    //this.canvasGenerate(this.code)
+
     this.newCode();
   }
 
   newCode() {
     let random = Math.floor(Math.random() * (999999 - 100000)) + 100000
-    // this.code=this.captcha.GenerateCode();
+
     this.random = random;
     this.canvasGenerate(random);
   }
@@ -56,13 +56,7 @@ export class ContactUsComponent implements OnInit {
     debugger
     this.submitted = false;
     if (this.loginForm.valid && this.isCaptchaMissMatched == false) {
-      //   return
-      // }
 
-      // else if (this.userCaptcha != this.random) {
-      //   this.userCaptcha = false;
-      // }
-      // else {
       let req: FormData = new FormData;
       req.CaptchaCode = this.loginForm.value.Captcha;
       req.City = this.loginForm.value.City;
@@ -77,12 +71,12 @@ export class ContactUsComponent implements OnInit {
       req.Subject = this.loginForm.value.selectedSubject;
 
 
-      if (this.orderVisible == true) {
+      if (this.radioInputVisible == 'online') {
         req.IsOnlineOrder = true;
         req.OrderNumber = this.loginForm.value.orderNumber;
 
       }
-      else if (this.storeVisible == true) {
+      else if (this.radioInputVisible == 'offline') {
         req.IsOnlineOrder = false;
         req.StoreName = this.loginForm.value.storeName;
         req.StoreCity = this.loginForm.value.storeCity;
@@ -104,27 +98,17 @@ export class ContactUsComponent implements OnInit {
 
   }
 
-  radiolist(event: any) {
-    if (event.target.value == 'Customer Feedback' || event.target.value == 'Returns & Exchange' || event.target.value == 'Payments') {
-      this.radioVisible = true;
-    }
-    else {
-      this.radioVisible = false;
-    }
+  radiolistVisible!: string;
+  radiolist(e: any) {
+    this.radiolistVisible = e.target.value;
+    this.radioInputVisible = '';
+  }
 
+  radioInputVisible!: string;
+  radioInput(e: any) {
+    this.radioInputVisible = e.target.value;
   }
-  orderNumber(event: any) {
-    if (event.target.value == 'true') {
-      this.orderVisible = true;
-      this.storeVisible = false;
-    }
-  }
-  storeName(e: any) {
-    if (e.target.value == 'false') {
-      this.storeVisible = true;
-      this.orderVisible = false;
-    }
-  }
+
   canvasGenerate(code: any) {
     var c = <HTMLCanvasElement>document.getElementById("myCanvas");
     var ctx = c.getContext("2d");
