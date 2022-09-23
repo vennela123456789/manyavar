@@ -1,0 +1,20 @@
+SnapShot1: (binary)
+body: 
+{"FirstName":"vene",
+"Email":"ven@gmail.com",
+"Address":"srpt",
+"Mobile":"9999999999",
+"Landline":"888888888888",
+"NoLocationName":"lb nagar",
+"CountryName":"India",
+"State":"Telangana",
+"City":"Hyderabad",
+"HaveAStoreLocation":"No",
+"OwnLocation":"No",
+"RentLocation":"Yes",
+"AreainSqftOftheStore":1000,
+"Frontage":20,
+"RetailStoresInSurrounding":"okk",
+"BusinessWebsite":"No",
+"Comments":"noo",
+"CaptchaCode":"435248"}

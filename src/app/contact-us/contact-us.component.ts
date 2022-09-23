@@ -86,8 +86,11 @@ export class ContactUsComponent implements OnInit {
         req.StoreCity = '';
         req.StoreName = ''
       }
-      this.contact.postService(ContactUs, req).subscribe(data => this.details = data)
+      console.log(this.details)
+      this.contact.postService(ContactUs, req).subscribe(res => this.details = res)
+
       alert('success')
+
       this.loginForm.reset();
       this.submitted = false;
 
@@ -119,7 +122,7 @@ export class ContactUsComponent implements OnInit {
 
   validateCaptcha(e: any) {
 
-    if (e.target.value != this.random && e.target.value.length > 0) {
+    if (e.target.value != this.random && e.target.value.length > 6) {
       this.isCaptchaMissMatched = true;
       // this.userCaptcha = false;
     }
@@ -146,6 +149,4 @@ export class FormData {
   StoreName!: string;
   Subject!: string;
   OrderNumber!: string;
-
-
 }

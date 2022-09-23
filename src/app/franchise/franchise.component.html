@@ -1,0 +1,495 @@
+<div class="container-fluid">
+  <div class="franchise-grid">
+    <ul class="franchise-tab">
+      <li class="step1 active" [ngClass]="isActive ? 'inactive' : 'active'">
+        <span>Step1</span>"Applicant details"
+      </li>
+      <li class="step2 inactive" [ngClass]="isActive ? 'active' : 'inactive'">
+        <span>Step2</span>"Proposed Store Details"
+      </li>
+    </ul>
+    <p class="text">*Required fields</p>
+  </div>
+
+  <form [formGroup]="loginForm">
+    <div *ngIf="next">
+      <div class="mx-auto col-4">
+        <div class="form-box">
+          <div class="input-box">
+            <input type="text" formControlName="Name" required maxlength="32" />
+          </div>
+          <label>Full Name*</label>
+          <span
+            class="text-danger"
+            *ngIf="(submitted1&& loginForm.get('Name')?.errors?.['required']) ||(loginForm.get('Name')?.errors?.['required'] && loginForm.get('Name')?.touched)"
+          >
+            Enter Full Name
+          </span>
+          <span
+            class="text-danger"
+            *ngIf="loginForm.get('Name')?.errors?.['pattern'] || loginForm.get('Name')?.errors?.['minlength']"
+            >Invalid Full Name</span
+          >
+        </div>
+
+        <div class="form-box">
+          <div class="input-box">
+            <input
+              type="text"
+              formControlName="Email"
+              maxlength="128"
+              required
+            />
+          </div>
+          <label>Email Address*</label>
+          <span
+            class="text-danger"
+            *ngIf="submitted1 && loginForm.get('Email')?.errors?.['required'] || loginForm.get('Email')?.errors?.['required'] && loginForm.get('Email')?.touched"
+            >Enter Email Address</span
+          >
+          <span
+            class="text-danger"
+            *ngIf="loginForm.get('Email')?.errors?.['pattern'] "
+            >Invalid Email Address</span
+          >
+        </div>
+        <div class="form-box">
+          <div class="input-box">
+            <textarea
+              rows="1"
+              cols="60"
+              formControlName="Address"
+              required
+            ></textarea>
+          </div>
+          <label>Permanent Residential Address*</label>
+          <span
+            class="text-danger"
+            *ngIf="submitted1  && loginForm.get('Address')?.errors?.['required'] || loginForm.get('Address')?.touched && loginForm.get('Address')?.errors?.['required']"
+            >Enter address</span
+          >
+          <span
+            class="text-danger"
+            *ngIf="loginForm.get('Address')?.errors?.['pattern']"
+            >Invalid Address</span
+          >
+        </div>
+
+        <div class="form-box">
+          <div class="input-box">
+            <input
+              type="number"
+              formControlName="Mobile"
+              onKeyPress="if(this.value.length==10) return false"
+              required
+            />
+          </div>
+          <label>Mobile No.*</label>
+          <span
+            class="text-danger"
+            *ngIf="submitted1  && loginForm.get('Mobile')?.errors?.['required'] || loginForm.get('Mobile')?.touched && loginForm.get('Mobile')?.errors?.['required']"
+            >Enter Mobile Number</span
+          >
+          <span
+            class="text-danger"
+            *ngIf="loginForm.get('Mobile')?.errors?.['pattern']"
+            >Invalid Mobile Number</span
+          >
+        </div>
+
+        <div class="form-box">
+          <div class="input-box">
+            <input
+              type="number"
+              formControlName="Landline"
+              required
+              onKeyPress="if(this.value.length==12) return false"
+            />
+          </div>
+          <label>LandLine No.*</label>
+          <span
+            class="text-danger"
+            *ngIf="submitted1  && loginForm.get('Landline')?.errors?.['required'] || loginForm.get('Landline')?.errors?.['required'] && loginForm.get('Landline')?.touched"
+            >Enter Landline Number
+          </span>
+          <span
+            class="text-danger"
+            *ngIf="loginForm.get('Landline')?.errors?.['pattern'] || loginForm.get('Landline')?.errors?.['minLength']"
+            >Invalid landline</span
+          >
+        </div>
+        <div class="text-center">
+          <button class="btn mt-3" (click)="nextPage()">Next</button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <form [formGroup]="submitForm">
+    <div *ngIf="gotoSubmit">
+      <div class="mx-auto row" style="width: 600px">
+        <div class="col-6">
+          <div class="form-box">
+            <div class="input-box">
+              <select
+                formControlName="Country"
+                (change)="getStates($event)"
+                required
+              >
+                <option>select country</option>
+                <option
+                  *ngFor="let country of details"
+                  [value]="country.CountryId"
+                >
+                  {{ country.CountryName }}
+                </option>
+              </select>
+            </div>
+            <label>Proposed Store*</label>
+            <span
+              class="text-danger"
+              *ngIf="submitted2 && submitForm.get('Country')?.errors?.['required'] || submitForm.get('Country')?.touched && submitForm.get('Country')?.errors?.['required']"
+            >
+              Proposed Store required
+            </span>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-box">
+            <div class="input-box">
+              <select
+                formControlName="State"
+                (change)="getCities($event)"
+                required
+              >
+                <option>Select state</option>
+                <option *ngFor="let state of states">{{ state.Name }}</option>
+              </select>
+            </div>
+            <label>State/Province*</label>
+            <span
+              class="text-danger"
+              *ngIf="submitted2 && submitForm.get('State')?.errors?.['required'] || submitForm.get('State')?.touched && submitForm.get('State')?.errors?.['required']"
+            >
+              state or province is required
+            </span>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="form-box">
+            <div class="input-box">
+              <select formControlName="City">
+                <option>Select city</option>
+                <option *ngFor="let city of cities">{{ city.Name }}</option>
+              </select>
+            </div>
+            <label>City*</label>
+            <span
+              class="text-danger"
+              *ngIf="submitted2 && submitForm.get('City')?.errors?.['required'] || submitForm.get('City')?.touched && submitForm.get('City')?.errors?.['required']"
+            >
+              city is required
+            </span>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-box">
+            <div class="input-box">
+              <input type="text" formControlName="Location" required />
+            </div>
+            <label>Enter Your Location*</label>
+            <span
+              class="text-danger"
+              *ngIf="submitted2 && submitForm.get('Location')?.errors?.['required'] || submitForm.get('Location')?.touched && submitForm.get('Location')?.errors?.['required']"
+            >
+              Enter location
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="mx-auto row d-flex justify-content-center mt-3"
+        style="width: 600px"
+      >
+        <div class="col-4">
+          <p
+            style="
+              color: #89681f;
+              font-family: 'Philosopher';
+              font-weight: bold;
+            "
+          >
+            Ready Store Available?
+          </p>
+          <div class="d-flex mt-2" style="color: #8c8b8b">
+            <input
+              type="radio"
+              name="Availability"
+              value="Yes"
+              id="input3"
+              formControlName="Availability"
+            />Yes
+            <input
+              type="radio"
+              name="Availability"
+              value="No"
+              id="input4"
+              formControlName="Availability"
+            />No
+          </div>
+          <div>
+            <span
+              class="text-danger"
+              *ngIf="submitted2 && submitForm.get('Availability')?.errors?.['required'] || submitForm.get('Availability')?.touched && submitForm.get('Availability')?.errors?.['required']"
+              >Availability Required</span
+            >
+          </div>
+        </div>
+
+        <div class="col-4">
+          <p
+            style="
+              color: #89681f;
+              font-family: 'Philosopher';
+              font-weight: bold;
+            "
+          >
+            Own Location?
+          </p>
+          <div class="d-flex mt-2" style="color: #8c8b8b">
+            <input
+              type="radio"
+              formControlName="Ownlocation"
+              name="Ownlocation"
+              value="Yes"
+              id="input3"
+            />yes
+            <input
+              type="radio"
+              formControlName="Ownlocation"
+              name="Ownlocation"
+              value="No"
+              id="input4"
+            />No
+          </div>
+          <div>
+            <span
+              class="text-danger"
+              *ngIf="submitted2 && submitForm.get('Ownlocation')?.errors?.['required']||submitForm.get('Ownlocation')?.touched && submitForm.get('Ownlocation')?.errors?.['required']"
+              >Ownlocation Required</span
+            >
+          </div>
+        </div>
+        <div class="col-4">
+          <p
+            style="
+              color: #89681f;
+              font-family: 'Philosopher';
+              font-weight: bold;
+            "
+          >
+            Rented Location?
+          </p>
+          <div class="d-flex mt-2" style="color: #8c8b8b">
+            <input
+              type="radio"
+              formControlName="Rentedlocation"
+              name="Rentedlocation"
+              value="Yes"
+              id="input3"
+            />yes
+            <input
+              type="radio"
+              formControlName="Rentedlocation"
+              name="Rentedlocation"
+              value="No"
+              id="input4"
+            />No
+          </div>
+          <div>
+            <span
+              class="text-danger"
+              *ngIf="submitted2 && submitForm.get('Rentedlocation')?.errors?.['required']  || submitForm.get('Rentedlocation')?.touched && submitForm.get('Rentedlocation')?.errors?.['required']"
+              >Rentedlocation Required</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="row mx-auto mt-3" style="width: 600px">
+        <h4
+          style="font-size: 18px; font-family: Philosopher; font-weight: bold"
+        >
+          Proposed Store Location in Area
+        </h4>
+        <p style="color: #8c8b8b; font-family: Philosopher; font-weight: bold">
+          Carpet area cannot be less than 1000 sq feet and frontage less than 20
+          sq feet
+        </p>
+        <div class="col-6">
+          <div class="form-box">
+            <div class="input-box">
+              <input type="number" formControlName="CarpetArea" required />
+            </div>
+            <label>Carpet Area (In sq ft)*</label>
+            <span
+              class="text-danger"
+              *ngIf="submitted2 && submitForm.get('CarpetArea')?.errors?.['required'] || submitForm.get('CarpetArea')?.touched && submitForm.get('CarpetArea')?.errors?.['required']"
+            >
+              Enter CarpetArea
+            </span>
+            <span
+              class="text-danger"
+              *ngIf=" submitForm.get('CarpetArea')?.errors?.['minLength']"
+            >
+              Carpet area cannot be less than 1000 sq feet
+            </span>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-box">
+            <div class="input-box">
+              <input type="text" formControlName="Frontage" required />
+            </div>
+            <label>Frontage(in sq ft)*</label>
+            <span
+              class="text-danger"
+              *ngIf=" submitted2 && submitForm.get('Frontage')?.errors?.['required'] || submitForm.get('Frontage')?.touched && submitForm.get('Frontage')?.errors?.['required']"
+            >
+              Enter frontageArea minimum 20sq ft
+            </span>
+          </div>
+        </div>
+
+        <h4
+          class="mt-3"
+          style="font-size: 18px; font-family: Philosopher; font-weight: bold"
+        >
+          Proposed Location Snap Attachments
+        </h4>
+
+        <div class="col-6 form-group">
+          <label style="background-color: #900c19; color: #f2c452"
+            >Choose File</label
+          ><br />
+          <input
+            type="file"
+            name="profile"
+            formControlName="snapShot"
+            (change)="uploadFiles($event)"
+          />
+        </div>
+
+        <div class="col-6 form-group">
+          <label class="file">Choose File</label><br />
+          <input
+            type="file"
+            name="profile"
+            (change)="uploadFiles($event)"
+            formControlName="snapShot"
+          />
+        </div>
+        <div class="col-6 form-group">
+          <label for="file">Choose File</label><br />
+          <input
+            type="file"
+            name="profile"
+            (change)="uploadFiles($event)"
+            formControlName="snapShot"
+          />
+        </div>
+        <div class="form-box">
+          <div class="input-box">
+            <textarea formControlName="Store"></textarea>
+          </div>
+          <label>Retail stores presence in surrounding vicinity*</label>
+          <span
+            class="text-danger"
+            *ngIf=" submitted2 && submitForm.get('Store')?.errors?.['required'] || submitForm.get('Store')?.touched && submitForm.get('Store')?.errors?.['required']"
+          >
+            Presence of store required
+          </span>
+        </div>
+        <h4
+          class="mt-3"
+          style="font-size: 18px; font-family: Philosopher; font-weight: bold"
+        >
+          Business background*
+        </h4>
+        <p style="color: #8c8b8b; font-family: Philosopher; font-size: 12px">
+          *Whether you have an existing Retail Outlets/Background
+        </p>
+
+        <div class="d-flex mt-2">
+          <input
+            type="radio"
+            formControlName="Business"
+            name="Business"
+            value="Yes"
+            id="input3"
+          />yes
+          <input
+            type="radio"
+            formControlName="Business"
+            name="Business"
+            value="No"
+            id="input4"
+          />No
+        </div>
+        <div>
+          <span
+            class="text-danger"
+            *ngIf=" submitted2 && submitForm.get('Business')?.errors?.['required'] || submitForm.get('Business')?.touched && submitForm.get('Business')?.errors?.['required']"
+          >
+            Business background required</span
+          >
+        </div>
+
+        <div class="form-box">
+          <div class="input-box">
+            <textarea formControlName="Comments"></textarea>
+          </div>
+          <label>Other comments*</label>
+          <span
+            class="text-danger"
+            *ngIf="submitted2 && submitForm.get('Comments')?.errors?.['required'] || submitForm.get('Comments')?.touched && submitForm.get('Comments')?.errors?.['required']"
+          >
+            Comments Required
+          </span>
+        </div>
+
+        <div class="captcha">
+          <canvas id="myCanvas"></canvas>
+          <div class="mt-3" style="float: right">
+            <p style="font-weight: bold">Human Identification*</p>
+
+            <i
+              class="bi bi-arrow-clockwise p-3"
+              (click)="code()"
+              style="color: red"
+            ></i>
+            <input
+              type="text"
+              formControlName="Captcha"
+              (keyup)="validateCaptcha($event)"
+              onKeyPress="if(this.value.length==6) return false"
+              style="border: 1px solid black; width: 200px; height: 30px"
+            />
+            <span
+              class="text-danger"
+              *ngIf="submitted2 && submitForm.get('Captcha')?.errors?.['required'] ||submitForm.get('Captcha')?.touched &&submitForm.get('Captcha')?.errors?.['required']"
+              >Please enter the code shown</span
+            >
+            <span class="text-danger" *ngIf="IsCaptchaMissMatch"
+              >code does not match</span
+            >
+          </div>
+        </div>
+        <div class="text-center">
+          <button class="btn mt-3" (click)="submitPage()">Submit</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

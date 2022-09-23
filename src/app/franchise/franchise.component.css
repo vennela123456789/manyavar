@@ -1,0 +1,188 @@
+.franchise-grid {
+    padding: 0 0 20px;
+}
+
+.franchise-grid .franchise-tab {
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    position: relative;
+}
+
+.franchise-grid .franchise-tab li.active {
+    background: #f7e3bb;
+    color: #36290a;
+}
+
+.franchise-grid .franchise-tab li {
+    display: inline-block;
+    padding: 15px 10px;
+    width: 330px;
+    background: #f5f1e9;
+    font-size: 18px;
+    color: #ae9151;
+    text-transform: uppercase;
+    font-family: PhilosopherBold;
+    margin-right: -2px;
+    cursor: pointer;
+}
+
+.franchise-grid .franchise-tab li .step1 {
+    background: #f7e3bb;
+    color: #36290a;
+    display: inline-block;
+    padding: 15px 10px;
+    width: 330px;
+    position: absolute;
+    font-size: 18px;
+    font-family: PhilosopherRegular;
+    text-transform: uppercase;
+    font-family: PhilosopherBold;
+    margin-right: -2px;
+    cursor: pointer;
+
+
+}
+
+.franchise-grid .franchise-tab li span {
+    font-size: 12px;
+    display: block;
+    margin-bottom: 10px;
+    font-family: PhilosopherRegular;
+
+}
+
+.franchise-grid .franchise-tab li {
+    display: inline-block;
+    padding: 15px 10px;
+    width: 330px;
+    background: #f5f1e9;
+    font-size: 18px;
+    color: #ae9151;
+    text-transform: uppercase;
+    font-family: PhilosopherBold;
+    margin-right: -2px;
+    cursor: pointer;
+}
+
+.text {
+    text-align: center;
+}
+
+.form-box {
+    width: 100%;
+    margin-top: 35px;
+    position: relative;
+
+}
+
+
+
+.form-box .input-box,
+select {
+    border: 1px solid #d5c8aa;
+    padding: 10px;
+    display: block;
+
+    position: relative;
+
+}
+
+select:focus {
+    outline: none;
+}
+
+input,
+textarea,
+select {
+    padding: 0 10px;
+    width: 100%;
+    height: 100%;
+    border: none;
+    position: relative;
+    color: #8c8b8b;
+    font-size: 15px;
+
+}
+
+label {
+    font-size: 12px;
+    letter-spacing: 1.68px;
+    color: #89681f;
+    font-family: 'Philosopher';
+    text-transform: uppercase;
+    position: absolute;
+    left: 20px;
+    top: -9px;
+    padding: 0 13px;
+    background: #fff;
+    font-weight: bold;
+}
+
+.applicant-form {
+    max-width: 400px;
+    width: 90%;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+}
+
+.btn {
+    height: 36px;
+    font-size: 13px;
+    font-family: philosopherbold;
+    text-align: center;
+
+    text-transform: uppercase;
+    border-radius: 30px;
+    border: none;
+    background: #900c19;
+    color: #f2c452;
+    margin: 0 25px;
+    transition: all .5s ease;
+    outline: none;
+}
+
+/* #input1, 
+#input2 {
+    margin-right: -200px;
+}*/
+
+#input3,
+#input4 {
+    margin-right: -40px;
+}
+
+input[type="radio"] {
+    margin-top: 5px;
+
+}
+
+span {
+    font-size: 10px;
+    font-family: philosopher;
+}
+
+input[type="file"]::file-selector-button {
+    background: #900c19;
+    color: #f2c452;
+    border: none;
+    padding: 5px;
+}
+
+.captcha {
+    margin-top: 35px;
+    border: 1px solid #d2c0c085;
+    background-color: #d2c0c085;
+    padding: 10px 30px;
+    display: inline-block;
+    width: 100%;
+
+}
+
+canvas {
+    padding-top: 11px;
+    padding-left: 16px
+}
