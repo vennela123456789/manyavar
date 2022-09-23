@@ -350,7 +350,7 @@
         <div class="col-6">
           <div class="form-box">
             <div class="input-box">
-              <input type="text" formControlName="Frontage" required />
+              <input type="number" formControlName="Frontage" required />
             </div>
             <label>Frontage(in sq ft)*</label>
             <span
@@ -373,31 +373,16 @@
           <label style="background-color: #900c19; color: #f2c452"
             >Choose File</label
           ><br />
-          <input
-            type="file"
-            name="profile"
-            formControlName="snapShot"
-            (change)="uploadFiles($event)"
-          />
+          <input type="file" (change)="uploadFiles($event)" accept="jpg" />
         </div>
 
         <div class="col-6 form-group">
           <label class="file">Choose File</label><br />
-          <input
-            type="file"
-            name="profile"
-            (change)="uploadFiles($event)"
-            formControlName="snapShot"
-          />
+          <input type="file" (change)="uploadFiles($event)" />
         </div>
         <div class="col-6 form-group">
           <label for="file">Choose File</label><br />
-          <input
-            type="file"
-            name="profile"
-            (change)="uploadFiles($event)"
-            formControlName="snapShot"
-          />
+          <input type="file" (change)="uploadFiles($event)" />
         </div>
         <div class="form-box">
           <div class="input-box">
