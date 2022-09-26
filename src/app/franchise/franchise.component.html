@@ -330,7 +330,12 @@
         <div class="col-6">
           <div class="form-box">
             <div class="input-box">
-              <input type="number" formControlName="CarpetArea" required />
+              <input
+                type="number"
+                formControlName="CarpetArea"
+                (keyup)="carpetArea($event)"
+                required
+              />
             </div>
             <label>Carpet Area (In sq ft)*</label>
             <span
@@ -339,10 +344,10 @@
             >
               Enter CarpetArea
             </span>
-            <span
-              class="text-danger"
-              *ngIf=" submitForm.get('CarpetArea')?.errors?.['minLength']"
+            <span class="text-danger" *ngIf="frontageMax"
+              >area can't be greater than 100000sq .ft</span
             >
+            <span class="text-danger" *ngIf="carpet">
               Carpet area cannot be less than 1000 sq feet
             </span>
           </div>
@@ -350,7 +355,12 @@
         <div class="col-6">
           <div class="form-box">
             <div class="input-box">
-              <input type="number" formControlName="Frontage" required />
+              <input
+                type="number"
+                formControlName="Frontage"
+                required
+                (keyup)="frontageArea($event)"
+              />
             </div>
             <label>Frontage(in sq ft)*</label>
             <span
@@ -359,6 +369,8 @@
             >
               Enter frontageArea minimum 20sq ft
             </span>
+
+            <span class="text-danger" *ngIf="frontage">min 20sq ft</span>
           </div>
         </div>
 
@@ -373,16 +385,26 @@
           <label style="background-color: #900c19; color: #f2c452"
             >Choose File</label
           ><br />
-          <input type="file" (change)="uploadFiles($event)" accept="jpg" />
+          <input type="file" (change)="uploadFiles($event, '1')" />
+          <span class="text-danger" *ngIf="error1"
+            >extensions should be .png, .jpg, .zip</span
+          >
         </div>
 
         <div class="col-6 form-group">
           <label class="file">Choose File</label><br />
-          <input type="file" (change)="uploadFiles($event)" />
+          <input type="file" (change)="uploadFiles($event, '2')" />
+          <span class="text-danger" *ngIf="error2"
+            >extensions should be .png, .jpg, .zip</span
+          >
         </div>
+
         <div class="col-6 form-group">
           <label for="file">Choose File</label><br />
-          <input type="file" (change)="uploadFiles($event)" />
+          <input type="file" (change)="uploadFiles($event, '3')" />
+          <span class="text-danger" *ngIf="error3"
+            >extensions should be .png, .jpg, .zip</span
+          >
         </div>
         <div class="form-box">
           <div class="input-box">

@@ -9,7 +9,7 @@ import { franchise, stateApi } from '../constants/constants';
 })
 export class FranchiseService {
   token: string =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaWQiOiIzMzQxZDhmYy02NDI1LTQzOWItOTQ0ZS0yNDUyNzY4ODI3OWEiLCJhaWQiOiJDQUQ1MDU5MC1BMTg5LTQxNEYtQTJGNS0xMDMzOUQxRjlGOTciLCJkaWQiOiI0NDQ5NkIwMy0zNjQ3LTQ5MEMtQjJGMC0yRTE1OUIyN0QyNzgiLCJuYmYiOjE2NjM5MDY4MjQsImV4cCI6MTY2Mzk5MzIyNCwiaWF0IjoxNjYzOTA2ODI0fQ.Tec6T_R4CpJG6xJwfjmbs-Qr2Dm4NauszaHgCw_0kBc';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaWQiOiJkYTZjNTlhMi0xYWU5LTQzNjItYTFhZi1lYTUwM2MyNWZlMTEiLCJhaWQiOiJDQUQ1MDU5MC1BMTg5LTQxNEYtQTJGNS0xMDMzOUQxRjlGOTciLCJkaWQiOiI0NDQ5NkIwMy0zNjQ3LTQ5MEMtQjJGMC0yRTE1OUIyN0QyNzgiLCJuYmYiOjE2NjQxNzAxNzksImV4cCI6MTY2NDI1NjU3OSwiaWF0IjoxNjY0MTcwMTc5fQ.FQwa3i3nCl9n3QWSRrtnTo3boeNwsrhPdXQ1pNSpW9I';
 
   constructor(private http: HttpClient) {}
 
@@ -21,7 +21,6 @@ export class FranchiseService {
   options = { headers: this.abc };
 
   CountryRequest() {
-    debugger;
     return this.http.get(franchise, this.options).pipe(
       map((data: any) => {
         return data;
