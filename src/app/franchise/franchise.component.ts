@@ -144,7 +144,7 @@ export class FranchiseComponent implements OnInit {
       } else {
         this.error2 = true;
       }
-    } else if (id == '3' && event.target.file.length > 0) {
+    } else if (id == '3' && event.target.files.length > 0) {
       this.file3 = event.target.files;
       if (
         this.file3[0].type == 'image/jpg' ||
@@ -186,7 +186,9 @@ export class FranchiseComponent implements OnInit {
       this.carpet == false &&
       this.frontageMax == false &&
       this.frontage == false &&
-      this.error1 == false
+      this.error1 == false &&
+      this.error2 == false &&
+      this.error3 == false
     ) {
       let req: franchiseData = new franchiseData();
 
@@ -197,9 +199,9 @@ export class FranchiseComponent implements OnInit {
       req.Landline = this.loginForm.value.Landline;
 
       req.NoLocationName = this.submitForm.value.Location;
-      req.CountryName = this.submitForm.value.Country;
-      req.State = this.submitForm.value.State;
-      req.City = this.submitForm.value.City;
+      req.CountryName = this.xy.trim();
+      req.State = this.submitForm.value.State.trim();
+      req.City = this.submitForm.value.City.trim();
       req.HaveAStoreLocation = this.submitForm.value.Availability;
       req.OwnLocation = this.submitForm.value.Ownlocation;
       req.RentLocation = this.submitForm.value.Rentedlocation;
@@ -247,7 +249,18 @@ export class FranchiseComponent implements OnInit {
       .CountryRequest()
       .subscribe((res) => (this.details = res.Data));
   }
+  xy: any;
   getStates(e: any) {
+    // console.log(this.details);
+    for (let country of this.details) {
+      //  console.log(country);
+      if (country.CountryId == e.target.value) {
+        // console.log(e.target.value + 'selected id');
+        //  console.log(country.CountryId);
+        this.xy = country.CountryName;
+        //  console.log(this.xy);
+      }
+    }
     this.franchise
       .StateRequest(e.target.value)
       .subscribe((res) => (this.states = res.Data));
